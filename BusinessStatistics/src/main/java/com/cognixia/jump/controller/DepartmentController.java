@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.model.Department;
-import com.cognixia.jump.repository.DeptRepository;
+import com.cognixia.jump.repository.DepartmentRepository;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class DepartmentController {
 
 	@Autowired
-	DeptRepository repo;
+	DepartmentRepository repo;
 	
 	@GetMapping("/dept")
 	public List<Department> getDepts() {

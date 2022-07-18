@@ -36,9 +36,6 @@ public class AuthenticationController {
 	JwtUtil jwtUtil;
 
 	@Autowired
-	UserDetails userDetails;
-
-	@Autowired
 	UserDetailsService userDetailsService;
 
 	@Autowired

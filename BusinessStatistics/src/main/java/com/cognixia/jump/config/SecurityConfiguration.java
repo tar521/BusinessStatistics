@@ -19,8 +19,8 @@ import com.cognixia.jump.service.MyUserDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-//	@Autowired
-//	private MyUserDetailsService userDetailsService;
+	@Autowired
+	private MyUserDetailsService userDetailsService;
 	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
@@ -28,12 +28,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure( AuthenticationManagerBuilder auth ) throws Exception {
 		
-//		auth.inMemoryAuthentication()
-//			.withUser("admin")
-//			.password(passwordEncoder().encode("password123"))
-//			.authorities("ADMIN");
-//		// security will only find the one built-in user within the service
-//		auth.userDetailsService( userDetailsService );
+		auth.inMemoryAuthentication()
+			.withUser("admin")
+			.password(passwordEncoder().encode("password123"))
+			.authorities("ADMIN");
+		// security will only find the one built-in user within the service
+		auth.userDetailsService( userDetailsService );
 	}
 	
 	@Override
