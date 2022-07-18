@@ -1,5 +1,7 @@
 package com.cognixia.jump.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +28,27 @@ public class Department {
 	@Column(nullable = false)
 	private String productName;
 	
+	@OneToMany(mappedBy = "dept")
+	private List<User> deptUsers;
+	
 	public Department() {}
+
+	public Department(Integer id, @NotBlank String name, @NotBlank String productName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.productName = productName;
+	}
+
+
+
+	public List<User> getDeptUsers() {
+		return deptUsers;
+	}
+
+	public void setDeptUsers(List<User> deptUsers) {
+		this.deptUsers = deptUsers;
+	}
 
 	public Integer getId() {
 		return id;

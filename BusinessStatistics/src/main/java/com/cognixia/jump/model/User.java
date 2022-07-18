@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
@@ -19,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 
 	public static enum Role {
-		ROLE_USER, ROLE_ADMIN   // roles should start with capital ROLE_ and be completely capital letters
+		ROLE_USER, ROLE_HEAD, ROLE_ADMIN   // roles should start with capital ROLE_ and be completely capital letters
 	}
 	
 	@Id
@@ -41,11 +43,35 @@ public class User {
 	@Column(columnDefinition = "boolean default true")
 	private boolean enabled; // is user enabled? Are they currently able to use this account
 	
+	
+	@OneToMany(mappedBy = "user")
+	private List<Sales> sales;
+	
+	@ManyToOne
+	@JoinColumn(name = "dept_id")
+	private Department dept;
+	
 //	@OneToMany(mappedBy = "user") //, cascade = CascadeType.ALL)
 //	@JsonIgnore
 //	private List<Cart> cartItems;
 	
 	
+	public List<Sales> getSales() {
+		return sales;
+	}
+
+	public void setSales(List<Sales> sales) {
+		this.sales = sales;
+	}
+
+	public Department getDept() {
+		return dept;
+	}
+
+	public void setDept(Department dept) {
+		this.dept = dept;
+	}
+
 	public User() {
 		
 	}
@@ -98,16 +124,6 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	
-
-//	public List<Cart> getCartItems() {
-//		return cartItems;
-//	}
-//
-//	public void setCartItems(List<Cart> cartItems) {
-//		this.cartItems = cartItems;
-//	}
 
 	@Override
 	public String toString() {
