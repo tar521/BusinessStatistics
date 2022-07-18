@@ -36,6 +36,15 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 	
+	@NotBlank
+	private String name;
+	
+	private String address;
+	
+	@NotBlank
+	@Column(nullable = false)
+	private String email;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Role role;
@@ -51,36 +60,19 @@ public class User {
 	@JoinColumn(name = "dept_id")
 	private Department dept;
 	
-//	@OneToMany(mappedBy = "user") //, cascade = CascadeType.ALL)
-//	@JsonIgnore
-//	private List<Cart> cartItems;
-	
-	
-	public List<Sales> getSales() {
-		return sales;
-	}
-
-	public void setSales(List<Sales> sales) {
-		this.sales = sales;
-	}
-
-	public Department getDept() {
-		return dept;
-	}
-
-	public void setDept(Department dept) {
-		this.dept = dept;
-	}
-
 	public User() {
 		
 	}
 
-	public User(Integer id, String username, @NotBlank String password, Role role, boolean enabled) {
+	public User(Integer id, @NotBlank String username, @NotBlank String password, @NotBlank String name, String address,
+			@NotBlank String email, Role role, boolean enabled) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.email = email;
 		this.role = role;
 		this.enabled = enabled;
 	}
@@ -109,6 +101,30 @@ public class User {
 		this.password = password;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Role getRole() {
 		return role;
 	}
@@ -123,6 +139,22 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public List<Sales> getSales() {
+		return sales;
+	}
+
+	public void setSales(List<Sales> sales) {
+		this.sales = sales;
+	}
+
+	public Department getDept() {
+		return dept;
+	}
+
+	public void setDept(Department dept) {
+		this.dept = dept;
 	}
 
 	@Override
