@@ -16,8 +16,6 @@ public class Department {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@OneToMany
-	@JoinColumn(name = "ID", referencedColumnName = "dept_id")
 	private Integer id;
 	
 	@NotBlank

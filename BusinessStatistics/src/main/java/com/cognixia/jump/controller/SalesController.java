@@ -29,7 +29,7 @@ public class SalesController {
 		return repo.findAll();
 	}
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/sales/{id}")
 	public ResponseEntity<?> getUserById(@PathVariable int id) {
 		Optional<Sales> found = repo.findById(null);
 		
