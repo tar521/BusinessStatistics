@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,13 +33,52 @@ public class UserController {
 	
 	@GetMapping("/user/{id}")
 	public ResponseEntity<?> getUserById(@PathVariable int id) {
-		Optional<User> found = repo.findById(null);
+		Optional<User> found = repo.findById(id);
 		
 		if (found.isEmpty()) {
 			return ResponseEntity.status(404).body("User with id: " + id + " was not found.");
 		}
 		else {
 			return ResponseEntity.status(200).body(found.get());
+		}
+	}
+	
+	@PutMapping("/user")
+	public ResponseEntity<?> updateUser(@RequestBody User user) {
+		boolean exists = repo.existsById(user.getId());
+		
+		if (!exists) {
+			return ResponseEntity.status(404).body("User not updated - user not found");
+		}
+		else {
+			User updated = repo.save(user);
+			return ResponseEntity.status(200).body(updated);
+		}
+	}
+	
+	@DeleteMapping("/user")
+	public ResponseEntity<?> deleteUser(@RequestBody User user) {
+		Optional<User> found = repo.findById(user.getId());
+		
+		if (found.isEmpty()) {
+			return ResponseEntity.status(404).body("User not deleted - user with id: " + user.getId() + " was not found");
+		}
+		else {
+			repo.deleteById(found.get().getId());
+			return ResponseEntity.status(200).body("User with id: " + found.get().getId() + " deleted");
+		}
+	}
+	
+	@DeleteMapping("/user/{id}")
+	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
+		Optional<User> found = repo.findById(id);
+		
+		if (found.isEmpty()) {
+			return ResponseEntity.status(404).body("User not deleted - user with id: " + id + " was not found");
+		}
+		else {
+			repo.deleteById(found.get().getId());
+			return ResponseEntity.status(200).body("User with id: " + found.get().getId() + " deleted");
 		}
 	}
 	
