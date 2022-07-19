@@ -46,6 +46,26 @@ public class SalesController {
 		}
 	}
 	
+	@GetMapping("/sales/dept")
+	public List<Sales> getSalesByDept(@RequestBody Department dept) {
+		return repo.findSalesByDept(dept.getId());
+	}
+	
+	@GetMapping("/sales/dept/{id}")
+	public List<Sales> getSalesByDeptId(@PathVariable int id) {
+		return repo.findSalesByDept(id);
+	}
+	
+	@GetMapping("/sales/user")
+	public List<Sales> getSalesByUser(@RequestBody User user) {
+		return repo.findSalesByUser(user.getId());
+	}
+	
+	@GetMapping("/sales/user/{id}")
+	public List<Sales> getSalesByUser(@PathVariable int id) {
+		return repo.findSalesByUser(id);
+	}
+	
 	@PostMapping("/sales")
 	public ResponseEntity<?> createDepartment(@RequestBody Sales sale) {
 		
