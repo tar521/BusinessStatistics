@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css'; 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard/MainDashboard.js'; 
 import Login from './Components/Login/Login.js';
 import Preferences from './Components/Preferences/Preferences.js';
