@@ -1,5 +1,6 @@
 package com.cognixia.jump.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +71,7 @@ public class SalesController {
 	public ResponseEntity<?> createDepartment(@RequestBody Sales sale) {
 		
 		sale.setId(null);
+		sale.setSaleDate(LocalDateTime.now());
 		
 		Sales created = repo.save(sale);
 		
