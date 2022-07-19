@@ -69,6 +69,8 @@ public class SalesController {
 		return repo.findSalesByYearMonth(month, year);
 	}
 	
+//	@GetMapping("/sales/mon")
+	
 	
 	@GetMapping("/sales/user")
 	public List<Sales> getSalesByUser(@RequestBody User user) {
