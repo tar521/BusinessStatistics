@@ -16,4 +16,11 @@ public interface SalesRepository extends JpaRepository<Sales, Integer>{
 	
 	@Query("select s from Sales s where s.user.id = ?1")
 	public List<Sales> findSalesByUser(int id);
+	
+	@Query(value = "SELECT * FROM sales WHERE year(date_of_sale) = ?", nativeQuery = true)
+	public List<Sales> findSalesByYear(int year);
+	
+	@Query(value = "SELECT * FROM sales WHERE year(date_of_sale) = ?2 "
+			+ "and month(date_of_sale) = ?1", nativeQuery = true)
+	public List<Sales> findSalesByYearMonth(int month, int year);
 }

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,6 +58,17 @@ public class SalesController {
 	public List<Sales> getSalesByDeptId(@PathVariable int id) {
 		return repo.findSalesByDept(id);
 	}
+	
+	@GetMapping("/sales/year/{year}") 
+	public List<Sales> getSalesByYear(@PathVariable int year) {
+		return repo.findSalesByYear(year);
+	}
+	
+	@GetMapping("/sales/month")
+	public List<Sales> getSalesByYearMonth(@PathParam(value = "month")int month, @PathParam(value = "year")int year) {
+		return repo.findSalesByYearMonth(month, year);
+	}
+	
 	
 	@GetMapping("/sales/user")
 	public List<Sales> getSalesByUser(@RequestBody User user) {
