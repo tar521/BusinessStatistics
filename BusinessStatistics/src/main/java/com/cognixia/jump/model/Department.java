@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Department {
 
@@ -27,6 +29,7 @@ public class Department {
 	private String productName;
 	
 	@OneToMany(mappedBy = "dept")
+	@JsonIgnore
 	private List<User> deptUsers;
 	
 	public Department() {}

@@ -11,9 +11,9 @@ import com.cognixia.jump.model.Sales;
 @Repository
 public interface SalesRepository extends JpaRepository<Sales, Integer>{
 
-	@Query("select s from Sales where s.dept.id = ?1")
+	@Query("select s from Sales s where s.dept.id = ?1")
 	public List<Sales> findSalesByDept(int id);
 	
-	@Query("select s from Sales where s.user.id = ?1")
+	@Query("select s from Sales s where s.user.id = ?1")
 	public List<Sales> findSalesByUser(int id);
 }

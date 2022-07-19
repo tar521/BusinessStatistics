@@ -54,6 +54,7 @@ public class User {
 	
 	
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Sales> sales;
 	
 	@ManyToOne
