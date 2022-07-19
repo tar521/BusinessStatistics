@@ -46,7 +46,7 @@ public class SalesController {
 		}
 	}
 	
-	@PostMapping("/dept")
+	@PostMapping("/sales")
 	public ResponseEntity<?> createDepartment(@RequestBody Sales sale) {
 		
 		sale.setId(null);
@@ -56,7 +56,7 @@ public class SalesController {
 		return ResponseEntity.status(201).body(created);
 	}
 	
-	@PutMapping("/dept")
+	@PutMapping("/sales")
 	public ResponseEntity<?> updateUser(@RequestBody Sales sale) {
 		boolean exists = repo.existsById(sale.getId());
 		
@@ -69,7 +69,7 @@ public class SalesController {
 		}
 	}
 	
-	@DeleteMapping("/dept")
+	@DeleteMapping("/sales")
 	public ResponseEntity<?> deleteUser(@RequestBody Sales sale) {
 		Optional<Sales> found = repo.findById(sale.getId());
 		
@@ -82,7 +82,7 @@ public class SalesController {
 		}
 	}
 	
-	@DeleteMapping("/dept/{id}")
+	@DeleteMapping("/sales/{id}")
 	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
 		Optional<Sales> found = repo.findById(id);
 		
