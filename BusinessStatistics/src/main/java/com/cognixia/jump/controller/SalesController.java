@@ -69,7 +69,16 @@ public class SalesController {
 		return repo.findSalesByYearMonth(month, year);
 	}
 	
-//	@GetMapping("/sales/mon")
+	@GetMapping("/sales/dept/year")
+	public List<Sales> getSalesByDeptByYear(@PathParam(value = "id")int id, @PathParam(value = "year")int year) {
+		return repo.findSalesByDeptByYear(id, year);
+	}
+	
+	
+	@GetMapping("/sales/dept/month")
+	public List<Sales> getSalesByDeptByYear(@PathParam(value = "id")int id, @PathParam(value = "year")int year, @PathParam(value = "year")int month) {
+		return repo.findSalesByDeptByYearMonth(id, year, month);
+	}
 	
 	
 	@GetMapping("/sales/user")
@@ -94,7 +103,7 @@ public class SalesController {
 	}
 	
 	@PutMapping("/sales")
-	public ResponseEntity<?> updateUser(@RequestBody Sales sale) {
+	public ResponseEntity<?> updateSale(@RequestBody Sales sale) {
 		boolean exists = repo.existsById(sale.getId());
 		
 		if (!exists) {
@@ -107,7 +116,7 @@ public class SalesController {
 	}
 	
 	@DeleteMapping("/sales")
-	public ResponseEntity<?> deleteUser(@RequestBody Sales sale) {
+	public ResponseEntity<?> deleteSale(@RequestBody Sales sale) {
 		Optional<Sales> found = repo.findById(sale.getId());
 		
 		if (found.isEmpty()) {
@@ -120,7 +129,7 @@ public class SalesController {
 	}
 	
 	@DeleteMapping("/sales/{id}")
-	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
+	public ResponseEntity<?> deleteSaleById(@PathVariable int id) {
 		Optional<Sales> found = repo.findById(id);
 		
 		if (found.isEmpty()) {
