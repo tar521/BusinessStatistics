@@ -56,7 +56,7 @@ public class DepartmentController {
 	}
 	
 	@PutMapping("/dept")
-	public ResponseEntity<?> updateUser(@RequestBody Department dept) {
+	public ResponseEntity<?> updateDept(@RequestBody Department dept) {
 		boolean exists = repo.existsById(dept.getId());
 		
 		if (!exists) {
@@ -69,7 +69,7 @@ public class DepartmentController {
 	}
 	
 	@DeleteMapping("/dept")
-	public ResponseEntity<?> deleteUser(@RequestBody Department dept) {
+	public ResponseEntity<?> deleteDept(@RequestBody Department dept) {
 		Optional<Department> found = repo.findById(dept.getId());
 		
 		if (found.isEmpty()) {
@@ -82,7 +82,7 @@ public class DepartmentController {
 	}
 	
 	@DeleteMapping("/dept/{id}")
-	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
+	public ResponseEntity<?> deleteDeptById(@PathVariable int id) {
 		Optional<Department> found = repo.findById(id);
 		
 		if (found.isEmpty()) {

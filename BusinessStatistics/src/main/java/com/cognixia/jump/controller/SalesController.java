@@ -1,7 +1,10 @@
 package com.cognixia.jump.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,18 +49,61 @@ public class SalesController {
 		}
 	}
 	
-	@PostMapping("/dept")
+	@GetMapping("/sales/dept")
+	public List<Sales> getSalesByDept(@RequestBody Department dept) {
+		return repo.findSalesByDept(dept.getId());
+	}
+	
+	@GetMapping("/sales/dept/{id}")
+	public List<Sales> getSalesByDeptId(@PathVariable int id) {
+		return repo.findSalesByDept(id);
+	}
+	
+	@GetMapping("/sales/year/{year}") 
+	public List<Sales> getSalesByYear(@PathVariable int year) {
+		return repo.findSalesByYear(year);
+	}
+	
+	@GetMapping("/sales/month")
+	public List<Sales> getSalesByYearMonth(@PathParam(value = "month")int month, @PathParam(value = "year")int year) {
+		return repo.findSalesByYearMonth(month, year);
+	}
+	
+	@GetMapping("/sales/dept/year")
+	public List<Sales> getSalesByDeptByYear(@PathParam(value = "id")int id, @PathParam(value = "year")int year) {
+		return repo.findSalesByDeptByYear(id, year);
+	}
+	
+	
+	@GetMapping("/sales/dept/month")
+	public List<Sales> getSalesByDeptByYear(@PathParam(value = "id")int id, @PathParam(value = "year")int year, @PathParam(value = "year")int month) {
+		return repo.findSalesByDeptByYearMonth(id, year, month);
+	}
+	
+	
+	@GetMapping("/sales/user")
+	public List<Sales> getSalesByUser(@RequestBody User user) {
+		return repo.findSalesByUser(user.getId());
+	}
+	
+	@GetMapping("/sales/user/{id}")
+	public List<Sales> getSalesByUser(@PathVariable int id) {
+		return repo.findSalesByUser(id);
+	}
+	
+	@PostMapping("/sales")
 	public ResponseEntity<?> createDepartment(@RequestBody Sales sale) {
 		
 		sale.setId(null);
+		sale.setSaleDate(LocalDateTime.now());
 		
 		Sales created = repo.save(sale);
 		
 		return ResponseEntity.status(201).body(created);
 	}
 	
-	@PutMapping("/dept")
-	public ResponseEntity<?> updateUser(@RequestBody Sales sale) {
+	@PutMapping("/sales")
+	public ResponseEntity<?> updateSale(@RequestBody Sales sale) {
 		boolean exists = repo.existsById(sale.getId());
 		
 		if (!exists) {
@@ -69,8 +115,8 @@ public class SalesController {
 		}
 	}
 	
-	@DeleteMapping("/dept")
-	public ResponseEntity<?> deleteUser(@RequestBody Sales sale) {
+	@DeleteMapping("/sales")
+	public ResponseEntity<?> deleteSale(@RequestBody Sales sale) {
 		Optional<Sales> found = repo.findById(sale.getId());
 		
 		if (found.isEmpty()) {
@@ -82,8 +128,8 @@ public class SalesController {
 		}
 	}
 	
-	@DeleteMapping("/dept/{id}")
-	public ResponseEntity<?> deleteUserById(@PathVariable int id) {
+	@DeleteMapping("/sales/{id}")
+	public ResponseEntity<?> deleteSaleById(@PathVariable int id) {
 		Optional<Sales> found = repo.findById(id);
 		
 		if (found.isEmpty()) {

@@ -4,6 +4,7 @@ import DeptFetch from './Models/DeptFetch.js';
 
  const MainDashboard = () => {
   return(
+
     
     <div className="wrapper">
       <h3>Business Statistics Dashboard</h3>
@@ -11,6 +12,7 @@ import DeptFetch from './Models/DeptFetch.js';
      
       
     </div>
+
   );
 }
 export default MainDashboard;
