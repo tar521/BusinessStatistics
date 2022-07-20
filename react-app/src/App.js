@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css'; 
 import {BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import Dashboard from './components/dashboard/MainDashboard'; 
-import Preferences from './components/Preferences/Preferences';
-import useToken from './components/Login/UseToken.js' 
+import Dashboard from './Components/Dashboard/MainDashboard'; 
+import Preferences from './Components/Preferences/Preferences';
+import useToken from './Components/Login/UseToken.js' 
 import { Button} from 'reactstrap';
-import Login from './components/Login/Login.js';
+import Login from './Components/Login/Login.js';
 import Home from './Home.js';
-import DeptFetch from './components/dashboard/Models/DeptFetch.js';
+import DeptFetch from './Components/Dashboard/Models/DeptFetch.js';
 
 // done below
 function App() { 
@@ -17,10 +17,7 @@ function App() {
     return <Login setToken={setToken} />
   } 
  
-  function ResetLogin(setToken){
-
-  }
-
+  
   return (
     <div className="container">
       
