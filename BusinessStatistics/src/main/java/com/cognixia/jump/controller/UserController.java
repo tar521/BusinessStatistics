@@ -43,6 +43,19 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping("/user/{username}")
+	public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
+		Optional<User> found = repo.findByUsername(username);
+		
+		if (found.isEmpty()) {
+			return ResponseEntity.status(404).body("User not found.");
+		}
+		else {
+			return ResponseEntity.status(200).body(found.get());
+		}
+		
+	}
+	
 	@PutMapping("/user")
 	public ResponseEntity<?> updateUser(@RequestBody User user) {
 		boolean exists = repo.existsById(user.getId());
