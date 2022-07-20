@@ -1,22 +1,7 @@
 import React from 'react';
-import { Link, Outlet} from 'react-router-dom';
-import DeptFetch from './Models/DeptFetch.js';
 
- const MainDashboard = () => {
+export default function MainDashboard() {
   return(
-
-    
-    <div className="wrapper">
-      <h3>Business Statistics Dashboard</h3>
-     
-     
-      
-    </div>
-
+    <h2>Business Statistics Dashboard</h2>
   );
 }
-export default MainDashboard;
-
-/*
-<DeptFetch/>
-*/
