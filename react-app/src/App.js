@@ -1,46 +1,37 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css'; 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Dashboard from './Components/Dashboard/MainDashboard.js'; 
+import {BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import Dashboard from './Components/Dashboard/MainDashboard'; 
+import Preferences from './Components/Preferences/Preferences';
+import useToken from './Components/Login/UseToken.js' 
+import { Button} from 'reactstrap';
 import Login from './Components/Login/Login.js';
-import Preferences from './Components/Preferences/Preferences.js';
- 
-function setToken(userToken) {
-  sessionStorage.setItem('token', JSON.stringify(userToken));
-} 
-
-function getToken() { 
-  const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  return userToken?.token
-}
+import Home from './Home.js';
+import DeptFetch from './Components/Dashboard/Models/DeptFetch.js';
 
 // done below
 function App() { 
-  const [token, setToken] = useState();
+  const {token, setToken} = useToken();
 
   if(!token) {
     return <Login setToken={setToken} />
   } 
-
  
-  return ( 
-
-    <div className="wrapper">
-      <h1>Application</h1>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/preferences">
-            <Preferences />
-          </Route>
-        </Routes>
+  
+  return (
+    <div className="container">
+      
+      <BrowserRouter>   
+          <Routes>
+            <Route path='/' element = {<Home />}>
+              <Route path='/Dashboard' element = {<Dashboard />}/>
+              <Route path='/DeptFetch' element = {<DeptFetch />}/>
+              <Route path='/Preferences' element = {<Preferences/>}/>   
+            </Route>
+            <Route path='/Login' element = {<Login setToken={setToken}/>}/>   
+          </Routes> 
       </BrowserRouter>
     </div>
-
-    // <></>
   );
 }
 
