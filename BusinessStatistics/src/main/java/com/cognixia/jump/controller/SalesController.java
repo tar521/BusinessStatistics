@@ -44,7 +44,7 @@ public class SalesController {
 	}
 	
 	@GetMapping("/sales/{id}")
-	public ResponseEntity<?> getUserById(@PathVariable int id) {
+	public ResponseEntity<?> getSaleById(@PathVariable int id) {
 		Optional<Sales> found = repo.findById(null);
 		
 		if (found.isEmpty()) {

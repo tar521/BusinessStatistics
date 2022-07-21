@@ -1,6 +1,13 @@
 package com.cognixia.jump.controller;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -43,7 +51,7 @@ public class SalesControllerTest {
 	@MockBean
 	private SalesRepository repo;
 	
-	@Autowired
+	@MockBean
 	private SalesService service;
 
 	@Autowired
@@ -53,7 +61,7 @@ public class SalesControllerTest {
 	private JwtRequestFilter filter;
 	
 	@Test
-	public void testgetSales() throws Exception {
+	public void testGetSales() throws Exception {
 		String uri = STARTING_URI + "/sales";
 		User admin = new User(1, "admin", "pass123", "admin jones", "test address", "admin@me.com", User.Role.ROLE_ADMIN, true);
 		
@@ -69,13 +77,29 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 	
+		when(repo.findAll()).thenReturn(allSales);
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+			.andExpect(jsonPath("$.length()").value(allSales.size()))
+			.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+			.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+			.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+			.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+			.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+			.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		verify(repo, times(1)).findAll();
+		verifyNoMoreInteractions(repo);
 	}
 	
 	@Test
-	public void testgetUserById() throws Exception {
+	public void testgetSaleById() throws Exception {
 		String uri = STARTING_URI + "/sales/{id}";
 		User admin = new User(1, "admin", "pass123", "admin jones", "test address", "admin@me.com", User.Role.ROLE_ADMIN, true);
+		
+		Sales sale1 = new Sales(1, 20000, LocalDateTime.now(), true);
 		
 		UserDetails dummy = new MyUserDetails(admin);
 		String jwtToken = jwtUtil.generateTokens(dummy);
@@ -101,7 +125,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -121,7 +158,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -141,7 +191,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -173,7 +236,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -193,7 +269,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -213,7 +302,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -233,7 +335,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
@@ -253,7 +368,20 @@ public class SalesControllerTest {
 		String jwtToken = jwtUtil.generateTokens(dummy);
 		RequestBuilder request = MockMvcRequestBuilders.get(uri).header("Authorization", "Bearer " + jwtToken);
 		
+		//////////////////////////
 		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(jsonPath("$.length()").value(allSales.size()))
+		.andExpect(jsonPath("$[0].id").value(allSales.get(0).getId()))
+		.andExpect(jsonPath("$[0].total").value(allSales.get(0).getTotal()))
+		.andExpect(jsonPath("$[1].id").value(allSales.get(1).getId()))
+		.andExpect(jsonPath("$[1].total").value(allSales.get(1).getTotal()))
+		.andExpect(jsonPath("$[2].id").value(allSales.get(2).getId()))
+		.andExpect(jsonPath("$[2].total").value(allSales.get(2).getTotal()));
+		
+		////////////////////
 	}
 	
 	@Test
