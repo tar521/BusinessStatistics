@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,21 @@ public class UserController {
 
 	@Autowired
 	UserRepository repo;
+	
+	@GetMapping("/user/info")
+	public ResponseEntity<?> getUserInfo() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = userDetails.getUsername();
+
+		Optional<User> found = repo.findByUsername(username);
+		
+		if(found.isEmpty()) {
+			return ResponseEntity.status(404).body("User not found");
+		}
+		else {
+			return ResponseEntity.status(200).body(found.get());
+		}
+	}
 	
 	@GetMapping("/user")
 	public List<User> getUsers() {
