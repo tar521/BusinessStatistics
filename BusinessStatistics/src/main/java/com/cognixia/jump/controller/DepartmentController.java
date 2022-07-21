@@ -35,13 +35,13 @@ public class DepartmentController {
 	
 	@GetMapping("/dept/{id}")
 	public ResponseEntity<?> getDeptById(@PathVariable int id) {
-		Optional<Department> found = repo.findById(null);
+		Optional<Department> found = repo.findById(id);
 		
-		if(found == null) {
+		if(found.isEmpty()) {
 			return ResponseEntity.status(404).body("Department with id of " + id + " was not found.");
 		}
 		else {
-			return ResponseEntity.status(200).body(found);
+			return ResponseEntity.status(200).body(found.get());
 		}
 	}
 	

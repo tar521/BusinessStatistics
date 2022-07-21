@@ -1,6 +1,7 @@
 package com.cognixia.jump.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognixia.jump.model.Department;
+import com.cognixia.jump.model.DeptSumDTO;
 import com.cognixia.jump.model.Sales;
 import com.cognixia.jump.model.User;
 import com.cognixia.jump.repository.SalesRepository;
+import com.cognixia.jump.service.SalesService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -31,6 +34,9 @@ public class SalesController {
 	
 	@Autowired
 	SalesRepository repo;
+	
+	@Autowired
+	SalesService service;
 	
 	@GetMapping("/sales")
 	public List<Sales> getSales() {
@@ -64,6 +70,14 @@ public class SalesController {
 		return repo.findSalesByYear(year);
 	}
 	
+	@GetMapping("/sales/year/sum/{year}")
+	public List<DeptSumDTO> getSalesTotalByYear(@PathVariable int year) {
+		
+		List<DeptSumDTO> salesTotal = service.sumByYear(year);
+
+		return salesTotal;
+	}
+	
 	@GetMapping("/sales/month")
 	public List<Sales> getSalesByYearMonth(@PathParam(value = "month")int month, @PathParam(value = "year")int year) {
 		return repo.findSalesByYearMonth(month, year);
@@ -76,7 +90,7 @@ public class SalesController {
 	
 	
 	@GetMapping("/sales/dept/month")
-	public List<Sales> getSalesByDeptByYear(@PathParam(value = "id")int id, @PathParam(value = "year")int year, @PathParam(value = "year")int month) {
+	public List<Sales> getSalesByDeptByYearMonth(@PathParam(value = "id")int id, @PathParam(value = "year")int year, @PathParam(value = "year")int month) {
 		return repo.findSalesByDeptByYearMonth(id, year, month);
 	}
 	
@@ -87,12 +101,12 @@ public class SalesController {
 	}
 	
 	@GetMapping("/sales/user/{id}")
-	public List<Sales> getSalesByUser(@PathVariable int id) {
+	public List<Sales> getSalesByUserById(@PathVariable int id) {
 		return repo.findSalesByUser(id);
 	}
 	
 	@PostMapping("/sales")
-	public ResponseEntity<?> createDepartment(@RequestBody Sales sale) {
+	public ResponseEntity<?> createSale(@RequestBody Sales sale) {
 		
 		sale.setId(null);
 		sale.setSaleDate(LocalDateTime.now());

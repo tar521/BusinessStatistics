@@ -81,14 +81,14 @@ public class DepartmentControllerTest {
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$.length()").value(allDepts.size()))
 			.andExpect(jsonPath("$[0].id").value(allDepts.get(0).getId()))
-			.andExpect(jsonPath("$[0].name").value(allDepts.get(0).getId()))
-			.andExpect(jsonPath("$[0].productName").value(allDepts.get(0).getId()))
+			.andExpect(jsonPath("$[0].name").value(allDepts.get(0).getName()))
+			.andExpect(jsonPath("$[0].productName").value(allDepts.get(0).getProductName()))
 			.andExpect(jsonPath("$[1].id").value(allDepts.get(1).getId()))
-			.andExpect(jsonPath("$[1].name").value(allDepts.get(1).getId()))
-			.andExpect(jsonPath("$[1].productName").value(allDepts.get(1).getId()))
+			.andExpect(jsonPath("$[1].name").value(allDepts.get(1).getName()))
+			.andExpect(jsonPath("$[1].productName").value(allDepts.get(1).getProductName()))
 			.andExpect(jsonPath("$[2].id").value(allDepts.get(2).getId()))
-			.andExpect(jsonPath("$[2].name").value(allDepts.get(2).getId()))
-			.andExpect(jsonPath("$[2].productName").value(allDepts.get(2).getId()));
+			.andExpect(jsonPath("$[2].name").value(allDepts.get(2).getName()))
+			.andExpect(jsonPath("$[2].productName").value(allDepts.get(2).getProductName()));
 		
 		verify(repo, times(1)).findAll();
 		verifyNoMoreInteractions(repo);
@@ -107,7 +107,7 @@ public class DepartmentControllerTest {
 				.header("Authorization", "Bearer " + jwtToken);
 
 		when(repo.findById(id)).thenReturn(Optional.of(dept1));
-		when(myUserDetailsService.loadUserByUsername("admin2")).thenReturn(dummy);
+		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
 		
 		mvc.perform(request).andDo(print()).andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
@@ -134,9 +134,9 @@ public class DepartmentControllerTest {
 				.header("Authorization", "Bearer " + jwtToken);
 
 		when(repo.save(Mockito.any(Department.class))).thenReturn(dept1);
-		when(myUserDetailsService.loadUserByUsername("admin2")).thenReturn(dummy);
+		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
 		
-		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+		mvc.perform(request).andDo(print()).andExpect(status().isCreated())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
 			.andExpect(jsonPath("$.id").value(dept1.getId())) 
 			.andExpect(jsonPath("$.name").value(dept1.getName()))
@@ -151,6 +151,27 @@ public class DepartmentControllerTest {
 		String uri = STARTING_URI + "/dept";
 		User admin = new User(1, "admin", "pass123", "admin jones", "test address", "admin@me.com", User.Role.ROLE_ADMIN, true);
 
+		Department dept1 = new Department(1, "Candy Factory", "Candy");		
+		UserDetails dummy = new MyUserDetails(admin);
+		String jwtToken = jwtUtil.generateTokens(dummy);
+		RequestBuilder request = MockMvcRequestBuilders.put(uri)
+				.content(asJsonString(dept1))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.header("Authorization", "Bearer " + jwtToken);
+		
+		when(repo.existsById(dept1.getId())).thenReturn(true);
+		when(repo.save(Mockito.any(Department.class))).thenReturn(dept1);
+		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+			.andExpect(jsonPath("$.id").value(dept1.getId())) 
+			.andExpect(jsonPath("$.name").value(dept1.getName()))
+			.andExpect(jsonPath("$.productName").value(dept1.getProductName()));
+		
+		verify(repo, times(1)).existsById(dept1.getId());
+		verify(repo, times(1)).save(Mockito.any(Department.class));
+		verifyNoMoreInteractions(repo);
 	}
 	
 	@Test
@@ -158,6 +179,22 @@ public class DepartmentControllerTest {
 		String uri = STARTING_URI + "/dept";
 		User admin = new User(1, "admin", "pass123", "admin jones", "test address", "admin@me.com", User.Role.ROLE_ADMIN, true);
 
+		Department dept1 = new Department(1, "Candy Factory", "Candy");		
+		UserDetails dummy = new MyUserDetails(admin);
+		String jwtToken = jwtUtil.generateTokens(dummy);
+		RequestBuilder request = MockMvcRequestBuilders.delete(uri)
+				.content(asJsonString(dept1))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.header("Authorization", "Bearer " + jwtToken);
+		
+		when(repo.findById(dept1.getId())).thenReturn(Optional.of(dept1));
+		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk());
+		
+		verify(repo, times(1)).findById(dept1.getId());
+		verify(repo, times(1)).deleteById(dept1.getId());
+		verifyNoMoreInteractions(repo);
 	}
 	
 	@Test
@@ -165,6 +202,20 @@ public class DepartmentControllerTest {
 		String uri = STARTING_URI + "/dept/{id}";
 		User admin = new User(1, "admin", "pass123", "admin jones", "test address", "admin@me.com", User.Role.ROLE_ADMIN, true);
 
+		Department dept1 = new Department(1, "Candy Factory", "Candy");		
+		UserDetails dummy = new MyUserDetails(admin);
+		String jwtToken = jwtUtil.generateTokens(dummy);
+		RequestBuilder request = MockMvcRequestBuilders.delete(uri, dept1.getId())
+				.header("Authorization", "Bearer " + jwtToken);
+		
+		when(repo.findById(dept1.getId())).thenReturn(Optional.of(dept1));
+		when(myUserDetailsService.loadUserByUsername("admin")).thenReturn(dummy);
+		
+		mvc.perform(request).andDo(print()).andExpect(status().isOk());
+		
+		verify(repo, times(1)).findById(dept1.getId());
+		verify(repo, times(1)).deleteById(dept1.getId());
+		verifyNoMoreInteractions(repo);
 	}
 	
 	public static String asJsonString(final Object obj) {
