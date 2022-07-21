@@ -2,6 +2,8 @@ import React from 'react';
 import SalesChart from '../../SalesChart';
 import GoalGauge from '../../GoalGauge';
 import PieChart from '../../PieChart';
+import StackedBar from '../../StackedBar';
+import BarChart from '../../BarChart';
 
 const id = 2;
 const dept_id = 1;
@@ -20,6 +22,12 @@ const dept_id = 1;
         <div className='child' style={{width: '40%'}} align='right'>
           <PieChart/>
         </div>
+      </div>
+      <div className='container'>
+        <BarChart/>
+      </div>
+      <div className='container'>
+        <StackedBar/>
       </div>
     </div>
   );
