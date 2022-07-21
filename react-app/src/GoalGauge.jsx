@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import highchartsMore from 'highcharts/highcharts-more';
@@ -7,13 +7,48 @@ import solidGauge from 'highcharts/modules/solid-gauge';
 highchartsMore(Highcharts);
 solidGauge(Highcharts);
 
-var gaugeOptions = {
+const requestOptions = {
+    method: 'GET'
+}
+
+const id = 2;
+const URI = 'http://localhost:8080/api/sales/month?month=7&year=2022';
+
+
+const GoalGauge = () => {
+
+    const [totalSales, setTotalSales] = useState([]);
+
+    useEffect( () => {
+
+        fetch(URI, requestOptions)
+        .then(result => {
+            return result.json();
+        })
+        .then(found => {
+            let totalSales = 0;
+            for(let i of found) {
+                if(i.user.id === id & i.status === true) {
+                    totalSales = totalSales + i.total;
+                }
+            }
+            setTotalSales(totalSales);
+        })
+        .catch(error => console.log(error));
+    }, [])
+
+    var gaugeOptions = {
     chart: {
         type: 'solidgauge'
     },
 
     title: {
         text: 'Sales This Month',
+        align: 'center'
+    },
+
+    subtitle: {
+        text: 'GOAL: 32k',
         align: 'center'
     },
 
@@ -32,13 +67,13 @@ var gaugeOptions = {
     },
 
     tooltip: {
-        enabled: true
+        enabled: false
     },
 
     // the value axis
     yAxis: {
-        min: 200,
-        max: 3000,
+        min: 0,
+        max: 28000,
         stops: [
             [0.1, '#D60000'], // red
             [0.5, '#F0E501'], // yellow
@@ -69,7 +104,7 @@ var gaugeOptions = {
 
     series: [{
         name: 'Sales',
-        data: [2500],
+        data: [totalSales],
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
@@ -83,7 +118,7 @@ var gaugeOptions = {
     }]
 };
 
-const GoalGauge = () => {
+
     return (
         <div>
         <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
