@@ -7,7 +7,7 @@ accessibility(Highcharts);
 
 const URI = 'http://localhost:8080/api/sales/year/2021';
 
-const SalesChart = () => {
+const SalesChart = (props) => {
 
   const requestOptions = {
     method: 'GET'
