@@ -7,15 +7,17 @@ import solidGauge from 'highcharts/modules/solid-gauge';
 highchartsMore(Highcharts);
 solidGauge(Highcharts);
 
-const requestOptions = {
-    method: 'GET'
-}
 
-const id = 2;
 const URI = 'http://localhost:8080/api/sales/month?month=7&year=2022';
 
 
 const GoalGauge = () => {
+
+    const requestOptions = {
+        method: 'GET'
+    }
+    
+    const id = 2;
 
     const [totalSales, setTotalSales] = useState([]);
 

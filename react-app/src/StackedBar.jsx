@@ -2,15 +2,17 @@ import React, {useState, useEffect} from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const requestOptions = {
-    method: 'GET'
-   };
+
 
 const URI = 'http://localhost:8080/api/sales/month?month=7&year=2022'
 const departments = ['Office Supplies', 'Microsoft Software', 'Computer Parts', 'IT Services', 'Financial Services'];
 
 const StackedBar = () => {
     
+    const requestOptions = {
+        method: 'GET'
+       };
+
     const [openTotal, setOpenTotal] = useState([]);
     const [closedTotal, setClosedTotal] = useState([]);
 

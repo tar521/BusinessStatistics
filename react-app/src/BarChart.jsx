@@ -2,9 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const requestOptions = {
-    method: 'GET'
-   };
+
 
 const officeURI = 'http://localhost:8080/api/sales/dept/year?id=1&year=2021';
 const microsoftURI = 'http://localhost:8080/api/sales/dept/year?id=2&year=2021';
@@ -13,6 +11,10 @@ const itServicesURI = 'http://localhost:8080/api/sales/dept/year?id=4&year=2021'
 const financialURI = 'http://localhost:8080/api/sales/dept/year?id=5&year=2021';
 
 const BarChart = () => {
+
+    const requestOptions = {
+        method: 'GET'
+       };
 
     const [officeTotal, setOfficeTotal] = useState([]);
     const [microsoftTotal, setMicrosoftTotal] = useState([]);

@@ -4,15 +4,17 @@ import HighchartsReact from 'highcharts-react-official';
 import accessibility from 'highcharts/modules/accessibility'
 accessibility(Highcharts);
 
-const requestOptions = {
-  method: 'GET'
- };
 
-const id = 2;
-const deptId = 1;
 const URI = 'http://localhost:8080/api/sales/year/2021';
 
 const SalesChart = () => {
+
+  const requestOptions = {
+    method: 'GET'
+   };
+  
+  const id = 2;
+  const deptId = 1;
 
   const [empTotals, setEmpTotals] = useState([]);
   const [deptTotals, setDeptTotals] = useState([]);

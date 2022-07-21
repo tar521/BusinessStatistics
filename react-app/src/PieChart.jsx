@@ -2,15 +2,17 @@ import React, {useState, useEffect} from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const requestOptions = {
-    method: 'GET'
-}
 
-const id = 2;
 const URI = 'http://localhost:8080/api/sales/month?month=7&year=2022';
 
 
 const PieChart = () => {
+
+    const requestOptions = {
+        method: 'GET'
+    }
+    
+    const id = 2;
     
     const [openSales, setOpenSales] = useState([]);
     const [closedSales, setClosedSales] = useState([]);
