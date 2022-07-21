@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
 import Home from '../Home.js';
-
+import {BrowserRouter, Route, Routes, Link , useNavigate} from 'react-router-dom';
+import App from '../../App';
+import Dashboard from '../Dashboard/MainDashboard'; 
+import Preferences from '../Preferences/Preferences';
 
 async function loginUser(credentials) {
  return fetch('http://localhost:8080/authenticate', {
@@ -16,7 +19,7 @@ async function loginUser(credentials) {
 }
 
 
-export default function Login({ setToken }) {
+ const Login = ({setToken}) => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const [isLogin, setIsLogin] = useState(false);
@@ -27,13 +30,16 @@ export default function Login({ setToken }) {
       password
     });
     setToken(token);
-    setIsLogin(true)
+    console.log(token);
+    //sessionStorage.setItem("token",token);
+    setIsLogin(true);
+    
   }
   if(!isLogin){
     return(
       <div className="login-wrapper">
         <h1>Please Log In</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit }>
           <label>
             <p>Username</p>
             <input type="text" onChange={e => setUserName(e.target.value)} />
@@ -47,19 +53,34 @@ export default function Login({ setToken }) {
           </div>
         </form>
       </div>
-    )
+    );
     
   }
-  return(
-    <Home/>
-  )
+  
+  
 
-}
+   return(
+    <div>
+   
+    <Routes>
+    <Route path='/' element = {<Home />}>
+        <Route path='/Dashboard' element = {<Dashboard />}/>
+        <Route path='/Preferences' element = {<Preferences/>}/>   
+      </Route>
+    </Routes>
+    </div>
+  ) 
+   
+
+
 
 Login.propTypes = {
   setToken: PropTypes.func.isRequired
 };
 
+};
+
+export default Login;
 /* Old code
 import React from 'react';
 import './Login.css';

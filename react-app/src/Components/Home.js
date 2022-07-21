@@ -1,18 +1,40 @@
-import {Link,Outlet } from 'react-router-dom';
 //import {withRouter} from 'react-router';
-const Home = () => {
+import {BrowserRouter, Route, Routes, Link,Outlet } from 'react-router-dom';
+import useToken from './Login/UseToken.js' 
+import Dashboard from './Dashboard/MainDashboard'; 
+import Preferences from './Preferences/Preferences';
+import Login from './Login/Login.js';
 
-  
-    return(
+const Home = props => {
+
+ // const {token, setToken} = useToken();
+ // setToken(sessionStorage.getItem("token"));
+
+  return(   
+    <div className="Container">
+      <Link to= "Login">Logout user</Link>
+
+      <h2>Application Home</h2>
+      <Link to= "/DashBoard"> DashBoard</Link>
+      <Link to= "/Preferences"> Preferences</Link>
+      <Outlet/>
       
-      <div className="wrapper">
-        <Link to= "/Login">Logout user</Link>
-        <h2>Application Home</h2>
-        <Link to="/Home/Dashboard">Dashboard</Link> |{" "}
-        <Link to="/Home/Preferences">Preferences</Link>|{" "}
-        <Outlet />
-      </div>
-    );
+    </div>
+  );
+
   }
   export default Home;
 
+/*
+<Routes>
+      {!token  ?(
+      <Route path='*' element = {<Login setToken={setToken} />}/>
+      ) :(
+      <Route path='/' element = {<Home />}>
+        <Route index element = {<Dashboard />}/>
+        <Route path='/Preferences' element = {<Preferences/>}/>   
+      </Route>
+      )}
+    </Routes> 
+
+*/

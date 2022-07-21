@@ -14,30 +14,38 @@ function App() {
 
   const {token, setToken} = useToken();
 
-  
-   if(!token) {
+ 
+  if(!token) {
    
-    return <Login setToken={setToken} />
-  } 
-   
+    return (  
+      <Routes>
+    <Route path='*' element = {<Login  setToken={setToken} />}/>
+    </Routes>)
+  }   
+  return(
+      <div>
+        should not display
+      </div>
+    )
+  }
   
-
+/* 
   return (
     <div className="container">
     
-       
-          <Routes>
-            <Route path='/Home' element = {<Home />}>
-              
-              <Route path='/Home/Dashboard' element = {<Dashboard />}/>
-              <Route path='/Home/DeptFetch' element = {<DeptFetch />}/>
-              <Route path='/Home/Preferences' element = {<Preferences/>}/>   
-            </Route>
-            <Route path='/Login' element = {<Login />}/>
-          </Routes> 
+      <Routes>
+        {!token  ?(
+        <Route path='*' element = {<Login setToken={setToken} />}/>
+        ) :(
+        <Route path='/' element = {<Home />}>
+          <Route index element = {<Dashboard />}/>
+          <Route path='/Preferences' element = {<Preferences/>}/>   
+        </Route>
+        )}
+      </Routes> 
      
     </div>
   );
-}
+} */
 
 export default App;
