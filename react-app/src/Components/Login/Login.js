@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
+import Home from '../Home.js';
+
 
 async function loginUser(credentials) {
- return fetch('http://localhost:8080/login', {
+ return fetch('http://localhost:8080/authenticate', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/json'
@@ -17,7 +19,7 @@ async function loginUser(credentials) {
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-
+  const [isLogin, setIsLogin] = useState(false);
   const handleSubmit = async e => {
     e.preventDefault();
     const token = await loginUser({
@@ -25,26 +27,33 @@ export default function Login({ setToken }) {
       password
     });
     setToken(token);
+    setIsLogin(true)
   }
-
+  if(!isLogin){
+    return(
+      <div className="login-wrapper">
+        <h1>Please Log In</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            <p>Username</p>
+            <input type="text" onChange={e => setUserName(e.target.value)} />
+          </label>
+          <label>
+            <p>Password</p>
+            <input type="password" onChange={e => setPassword(e.target.value)} />
+          </label>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    )
+    
+  }
   return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+    <Home/>
   )
+
 }
 
 Login.propTypes = {

@@ -6,7 +6,7 @@ const Home = () => {
     return(
       
       <div className="wrapper">
-        <Link to= "/Home/Login">Logout user</Link>
+        <Link to= "/Login">Logout user</Link>
         <h2>Application Home</h2>
         <Link to="/Home/Dashboard">Dashboard</Link> |{" "}
         <Link to="/Home/Preferences">Preferences</Link>|{" "}
@@ -15,3 +15,4 @@ const Home = () => {
     );
   }
   export default Home;
+
