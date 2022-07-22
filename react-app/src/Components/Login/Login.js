@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
 import Home from '../Home.js';
 import {Route, Routes } from 'react-router-dom';
 import Dashboard from '../Dashboard/MainDashboard'; 
 import Preferences from '../Preferences/Preferences';
+import DeptList from '../Models/DeptList';
+import SaleChartDisplay from '../Models/SaleChartDisplay';
+
 
 
  const Login = ({setToken}) => {
@@ -12,20 +15,6 @@ import Preferences from '../Preferences/Preferences';
   const [password, setPassword] = useState("pass123");
   const [user, setUser] = useState(undefined);
   const [authenticated, setAuthenticated] = useState(false);
-  const [cred, setCred] = useState();
-  const [credP, setCredP] = useState();
-
-  
-  // async function loginUser(credentials) {
-  //   return fetch('http://localhost:8080/authenticate', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(credentials)
-  //   })
-  //    .then(data => data.json())
-  //  }
 
 
   async function loginUser(credentials) {
@@ -44,42 +33,23 @@ import Preferences from '../Preferences/Preferences';
     })
      .catch((error) => {
       console.log(error);
-      setAuthenticated(false);
     });
-
-
    }
- 
-  //  async function errorCheck(data){
-  //   if (data.ok) {
-  //     console.log()
-  //     return data.json();
-  //   }
-  //   throw new Error("WRONG USERNAME AND PASSWORD");
-  //  }
 
+ 
+ 
   const handleSubmit = async e => {
     e.preventDefault();
-    
-      const token = await loginUser({
+        const token = await loginUser({
         username,
         password
       });
-      const realt = token;
-      console.log(realt);
-      setToken(token);
       
-      
-    
-      var passCorrect = "pass123";
-
-      
-    
+     setToken(token); 
+    console.log(token);
   }
      
-  
-  
- 
+
     return(
       <div className="login-wrapper">
         <h1>Please Log In</h1>
@@ -106,36 +76,34 @@ import Preferences from '../Preferences/Preferences';
     setToken: PropTypes.func.isRequired
   };
 
+/*
+   return(
+    <div>
  
-   
-  
+    <Routes>
+    <Route path='/' element = {<Dashboard />}/>
+    <Route path='/SaleChatDisplay' element = {<Dashboard />}/>
+    <Route path='/Preferences' element = {<Dashboard />}/>
+    <Route path='/DeptList' element = {<Dashboard />}/>
+    </Routes>
 
-
-
+    <Routes>
+    <Route path='/SaleChatDisplay' element = {<SaleChartDisplay />}/>
+    </Routes>     
+    
+    <Routes>
+    <Route path='/Preferences' element = {<Preferences />}/>
+    <Route path='/DeptList' element = {<DeptList />}/>
+    </Routes>     
+    
+      
+    
+    </div>
+  ) 
+*/
 
 };
 
 export default Login;
 
 
-/*
-
-async function getUserInfo(token) {
-     console.log(token);
-     let headers = new Headers();
-
-     headers.append('Content-Type', 'application/json');
-     headers.append('Accept', 'application/json');
-     headers.append('Authorization', 'Bearer ' + token);
-     headers.append('Origin','http://localhost:3000');
-
-    return fetch('http://localhost:8080/api/user/info', {
-       
-      method: 'GET',
-      headers: {
-        headers,
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
-      }}).then(res => res.json())
-    } */

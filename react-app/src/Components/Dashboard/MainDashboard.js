@@ -1,9 +1,7 @@
 import React from 'react';
-import SalesChart from '../../SalesChart';
-import GoalGauge from '../../GoalGauge';
-import PieChart from '../../PieChart';
-import StackedBar from '../../StackedBar';
-import BarChart from '../../BarChart';
+
+import { Link,Outlet } from 'react-router-dom';
+
 
 // Dropdown menu mechanism for 
 var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -53,15 +51,22 @@ document.body.scrollTop = 0;
 document.documentElement.scrollTop = 0;
 }
 
+
+
  const MainDashboard=(props) => {
   return(
     <div>
+     <h2 >Application Home</h2>
+      
       <div class="navbar">
-        <a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
-        <a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
-        <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
-        <a href="#"><i class="fa fa-fw fa-folder"></i> Data</a>
-        <a href="#"><i class="fa fa-fw fa-user"></i> User</a>  
+      <Link to= "/DashBoard"><a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> </Link>
+        <Link to= "/SaleChatDisplay"><a href="#"><i class="fa fa-fw fa-user"></i> SaleDisplay </a></Link>
+        
+        <Link to= "/"><a href="#"><i class="fa fa-fw fa-search"></i> Search </a> </Link>
+        <Link to= "/DashBoard"><a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> </Link>
+        <Link to= "/DeptList"><a href="#"><i class="fa fa-fw fa-folder"></i> DeptList</a></Link>
+        <Link to= "/"><a href="#"><i class="fa fa-fw fa-user"></i> Preferences</a>  </Link>
+        <Link to= "">  <a href="#"><i class="fa fa-fw fa-user"></i> Logout user </a></Link>
       </div>
       <div class="sidenav">
       <a href="#Sales">Sales extra</a>
@@ -92,28 +97,8 @@ document.documentElement.scrollTop = 0;
       </div>
       </div>
 
-      <div id = "content_area">
-      <div className='container' style = {{width: '80%'}} id='saleschart'>
-        <SalesChart/>
-      </div>
-      <div className='parent'>
-        <div className='child' style={{width: '40%'}} align='left' id='goalgauge'>
-          <GoalGauge/>
-        </div>
-        <div className='child' style={{width: '40%'}} align='right' id='piechart'>
-          <PieChart/>
-        </div>
-      </div>
-      <div className='container' style={{width: '80%'}} id='barchart'>
-        <BarChart/>
-      </div>
-      <div className='container' style={{width: '80%'}} id='stackedbar'>
-        <StackedBar/>
-      </div>
-      </div>
-      <footer> 
-       &copy; TriSamDylAlb 
-      </footer>
+      
+      <Outlet/>
     </div>
   );
 }
