@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		// http://localhost:8080/authenticate --> sent user credentials to create JWT
 
-		http.csrf().disable()
+		http.cors().and().csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/v3/api-docs/**").permitAll()
 			.antMatchers("/swagger-ui*/**").permitAll()

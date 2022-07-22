@@ -29,8 +29,8 @@ public class UserController {
 	@Autowired
 	UserRepository repo;
 	
-	@GetMapping("/user/info")
 	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/user/info")
 	public ResponseEntity<?> getUserInfo() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = userDetails.getUsername();
