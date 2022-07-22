@@ -5,51 +5,51 @@ import AppNavbar from './AppNavbar';
 
 const DeptFetch = () => {
 
-    const [depts, setDepts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    // const [depts, setDepts] = useState([]);
+    // const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setLoading(true);
+    // useEffect(() => {
+    //     setLoading(true);
     
-        fetch('api/dept')
-          .then(response => response.json())
-          .then(data => {
-            setDepts(data);
-            setLoading(false);
-          })
-      }, []);
+    //     fetch('http://localhost:8080/api/dept')
+    //       .then(response => response.json())
+    //       .then(data => {
+    //         setDepts(data);
+    //         setLoading(false);
+    //       })
+    //   }, []);
 
-      const remove = async (id) => {
-        await fetch(`/api/dept/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          }
-        }).then(() => {
-          let updatedDept = [...depts].filter(i => i.id !== id);
-          setDepts(updatedDept);
-        });
-      }
+    //   const remove = async (id) => {
+    //     await fetch(`/api/dept/${id}`, {
+    //       method: 'DELETE',
+    //       headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //       }
+    //     }).then(() => {
+    //       let updatedDept = [...depts].filter(i => i.id !== id);
+    //       setDepts(updatedDept);
+    //     });
+    //   }
 
-      if (loading) {
-        return <p>Loading...</p>;
-      }
+    //   if (loading) {
+    //     return <p>Loading...</p>;
+    //   }
 
-      const deptList = depts.map(dept => {
-        const productName = `${dept.productName || ''} `;
-        return <tr key={dept.id}>
-            <td style={{whiteSpace: 'nowrap'}}>{dept.name}</td>
-            <td>{productName}</td>
-            <td>
-            <ButtonGroup>
-                <Button size="sm" color="primary" tag={Link} to={"/dept/" + dept.id}>Edit</Button>
-                <Button size="sm" color="danger" onClick={() => remove(dept.id)}>Delete</Button>
-            </ButtonGroup>
-            </td>
+    //   const deptList = depts.map(dept => {
+    //     const productName = `${dept.productName || ''} `;
+    //     return <tr key={dept.id}>
+    //         <td style={{whiteSpace: 'nowrap'}}>{dept.name}</td>
+    //         <td>{productName}</td>
+    //         <td>
+    //         <ButtonGroup>
+    //             <Button size="sm" color="primary" tag={Link} to={"/dept/" + dept.id}>Edit</Button>
+    //             <Button size="sm" color="danger" onClick={() => remove(dept.id)}>Delete</Button>
+    //         </ButtonGroup>
+    //         </td>
 
-        </tr>
-      });
+    //     </tr>
+    //   });
 
 
     
@@ -66,9 +66,9 @@ const DeptFetch = () => {
                     <th width="10%">Actions</th>
                 </tr>
                 </thead>
-                <tbody>
+                {/* {<tbody>
                 {deptList}
-                </tbody>
+                </tbody>} */}
                 </Table>
             </Container>
         </div>
