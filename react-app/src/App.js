@@ -1,41 +1,50 @@
 import { useState, React} from 'react';
 import './App.css'; 
-import {BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-
-import useToken from './Components/Login/UseToken.js' 
 
 import Login from './Components/Login/Login.js';
-
-
+import {Route, Routes } from 'react-router-dom';
+import Dashboard from './Components/Dashboard/MainDashboard'; 
+import Preferences from './Components/Preferences/Preferences';
+import DeptList from './Components/Models/DeptList';
+import SaleChartDisplay from './Components/Models/SaleChartDisplay';
+import Home from './Components/Home.js';
 
 // done below
 function App() { 
+  sessionStorage.clear();
 
-  //sessionStorage.clear();
-
-  const {token, setToken} = useToken();
-
-
-  if(!token) {
-   
-    return (  
+  return(   
+    <div className="Container">
       <Routes>
-    <Route path='*' element = {<Login  setToken={setToken} />}/>
-    </Routes>)
-  }   
-  return(
-    <div>
-   
-    <Routes>
-    <Route path='/' element = {<Home />}>
-        <Route path='/Dashboard' element = {<Dashboard />}/>
-        <Route path='/Preferences' element = {<Preferences/>}/>   
-      </Route>
+        <Route path='/' element = {<Home/>}/>
+        <Route path='/Login' element = {<Login/> }/>
+      </Routes> 
       
-    </Routes>
+      <Routes>
+        <Route path='/Dashboard' element = {<Dashboard />}/>
+        <Route path='/SaleChatDisplay' element = {<Dashboard />}/>
+        <Route path='/Preferences' element = {<Dashboard />}/>
+        <Route path='/DeptList' element = {<Dashboard />}/>
+      </Routes>
+
+      <Routes>
+        <Route path='/SaleChatDisplay' element = {<SaleChartDisplay />}/>
+      </Routes>     
+    
+      <Routes>
+        <Route path='/Preferences' element = {<Preferences />}/>
+        <Route path='/DeptList' element = {<DeptList />}/>
+        
+      </Routes>     
+    
+      
+   
+     
     </div>
-    )
+  );
+
   }
+  
   
 /* 
   return (

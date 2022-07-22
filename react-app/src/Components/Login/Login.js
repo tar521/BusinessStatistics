@@ -1,20 +1,18 @@
 import React, { useState,useEffect } from 'react';
-import PropTypes from 'prop-types';
 import './Login.css';
-import Home from '../Home.js';
-import {Route, Routes } from 'react-router-dom';
+import useToken from './UseToken.js' 
+import {Route, Routes,Link } from 'react-router-dom';
 import Dashboard from '../Dashboard/MainDashboard'; 
-import Preferences from '../Preferences/Preferences';
-import DeptList from '../Models/DeptList';
-import SaleChartDisplay from '../Models/SaleChartDisplay';
 
 
 
- const Login = ({setToken}) => {
+
+ const Login = () => {
   const [username, setUserName] = useState("user");
   const [password, setPassword] = useState("pass123");
   const [user, setUser] = useState(undefined);
   const [authenticated, setAuthenticated] = useState(false);
+  const {token, setToken} = useToken();
 
 
   async function loginUser(credentials) {
@@ -47,6 +45,7 @@ import SaleChartDisplay from '../Models/SaleChartDisplay';
       
      setToken(token); 
     console.log(token);
+    
   }
      
 
@@ -63,20 +62,23 @@ import SaleChartDisplay from '../Models/SaleChartDisplay';
             <input type="password" onChange={e => setPassword(e.target.value)} />
           </label>
           <div>
-            <button type="submit">Submit</button>
+           <Link to ="/Dashboard" element = {<Dashboard/> }>  <button type="submit">Submit</button>
+           </Link>
+
           </div>
         </form>
+        
       </div>
     );
     
     
  
-  
+  /*
   Login.propTypes = {
     setToken: PropTypes.func.isRequired
   };
 
-/*
+
    return(
     <div>
  

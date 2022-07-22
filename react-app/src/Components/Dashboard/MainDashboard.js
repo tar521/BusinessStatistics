@@ -59,14 +59,14 @@ document.documentElement.scrollTop = 0;
      <h2 >Application Home</h2>
       
       <div class="navbar">
-      <Link to= "/DashBoard"><a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> </Link>
+      <Link to= "/"><a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> </Link>
         <Link to= "/SaleChatDisplay"><a href="#"><i class="fa fa-fw fa-user"></i> SaleDisplay </a></Link>
         
-        <Link to= "/"><a href="#"><i class="fa fa-fw fa-search"></i> Search </a> </Link>
-        <Link to= "/DashBoard"><a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> </Link>
+        <Link to= "/Dashboard"><a href="#"><i class="fa fa-fw fa-search"></i> Search </a> </Link>
+        <Link to= "/Dashboard"><a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> </Link>
         <Link to= "/DeptList"><a href="#"><i class="fa fa-fw fa-folder"></i> DeptList</a></Link>
-        <Link to= "/"><a href="#"><i class="fa fa-fw fa-user"></i> Preferences</a>  </Link>
-        <Link to= "">  <a href="#"><i class="fa fa-fw fa-user"></i> Logout user </a></Link>
+        <Link to= "/Preferences"><a href="#"><i class="fa fa-fw fa-user"></i> Preferences</a>  </Link>
+        <Link to= "/Login">  <a href="#"><i class="fa fa-fw fa-user"></i> Logout user </a></Link>
       </div>
       <div class="sidenav">
       <a href="#Sales">Sales extra</a>

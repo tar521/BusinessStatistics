@@ -1,24 +1,17 @@
 //import {withRouter} from 'react-router';
 import {Navigate, Route, Routes, Link,Outlet } from 'react-router-dom';
-import useToken from './Login/UseToken.js' 
-import Dashboard from './Dashboard/MainDashboard'; 
+
 
 
 const Home = props => {
+  sessionStorage.clear();
   return(   
     <div className="Container">
-       <h2 to = "/Home">Application Home</h2>
-       <Dashboard/>
-
-      <Link to= "Login" >
-        Logout user
-      </Link>
-
+       <h3 to = "/Home">Welcome</h3>
+       <h2>
+       <Link to= "/Login">Sign In</Link>
       
-      
-      
-      <Outlet/>
-      
+       </h2>
     </div>
   );
 

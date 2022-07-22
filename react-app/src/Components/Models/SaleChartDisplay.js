@@ -7,8 +7,8 @@ import useToken from '../Login/UseToken.js'
 const SaleChartDisplay = props => {
 
 
-     //const {token, setToken} = useToken();
-    
+     const {token, setToken} = useToken();
+    console.log(token)
    
      return(   
        <div className="SaleDisplay">
