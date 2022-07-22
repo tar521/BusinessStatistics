@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import SalesApis from '../../apis/SalesApis'
 
 const SalesTable = props => {
 
@@ -37,19 +38,19 @@ const SalesTable = props => {
                         {salesList.map( s =>
                             <tr key={s.id}>
                                 <td>{s.id}</td>
-                                <td>{s.date_of_sale}</td>
-                                <td>{s.order_status}</td>
+                                <td>{s.date}</td>
+                                <td>{s.status}</td>
                                 <td>{s.total}</td>
-                                <td>{s.dept_id}</td>
-                                <td>{s.user_id}</td>
+                                <td>{s.deptId}</td>
+                                <td>{s.userId}</td>
                                 <td>
                                     <button className='btn btn-danger'
                                     onClick={() => handleDelete(s)}>
                                         Delete
                                     </button>
                                     <button className='btn btn-primary'
-                                        onClick={() => {setToUpdate({'id': s.id, 'date_of_sale': s.date_of_sale, 'order_status': s.order_status, 
-                                    'total': s.total, 'dept_id': s.dept_id, 'user_id': s.user_id}); setShowForm(true);}}>
+                                        onClick={() => {setToUpdate({'id': s.id, 'date': s.date, 'status': s.status, 
+                                    'total': s.total, 'deptId': s.deptId, 'useId': s.useId}); setShowForm(true);}}>
                                         Update
                                     </button>
                                 </td>
