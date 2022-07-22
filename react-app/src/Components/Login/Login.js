@@ -16,15 +16,6 @@ import SaleChartDisplay from '../Models/SaleChartDisplay';
   const [user, setUser] = useState(undefined);
   const [authenticated, setAuthenticated] = useState(false);
 
- // const[newToken,setNewToken] = useState();
-  var pass = 0;
-
-  // useEffect(() => {
-  //   var tokenChange = setChangeToken(() => setToken(newToken));
- 
-  //   return () => sessionStorage.clear();
-  // });
-
 
   async function loginUser(credentials) {
     return fetch('http://localhost:8080/authenticate', {
@@ -40,43 +31,25 @@ import SaleChartDisplay from '../Models/SaleChartDisplay';
       }
       throw new Error("WRONG USERNAME AND PASSWORD");
     })
-     .then((dataJson)=>{
-      setAuthenticated(true);
-     })
      .catch((error) => {
       console.log(error);
-      setAuthenticated(false);
     });
-
-
    }
 
-
+ 
  
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
-      username,
-      password
-
-    });
-   
-    //setToken(token);
-   // setNewToken(token);
-    
+        const token = await loginUser({
+        username,
+        password
+      });
+      
+     setToken(token); 
     console.log(token);
-    sessionStorage.setItem("token",token);
-    
-    
-
   }
+     
 
-  
-
-
-  if(!authenticated){
-    
-  
     return(
       <div className="login-wrapper">
         <h1>Please Log In</h1>
@@ -97,15 +70,13 @@ import SaleChartDisplay from '../Models/SaleChartDisplay';
     );
     
     
-  }
+ 
   
   Login.propTypes = {
     setToken: PropTypes.func.isRequired
   };
 
- const testT = sessionStorage.getItem("token");
- console.log(testT);
-
+/*
    return(
     <div>
  
@@ -129,35 +100,10 @@ import SaleChartDisplay from '../Models/SaleChartDisplay';
     
     </div>
   ) 
-   
-  
-
-
-
+*/
 
 };
 
 export default Login;
 
 
-/*
-
-async function getUserInfo(token) {
-     console.log(token);
-     let headers = new Headers();
-
-     headers.append('Content-Type', 'application/json');
-     headers.append('Accept', 'application/json');
-     headers.append('Authorization', 'Bearer ' + token);
-     headers.append('Origin','http://localhost:3000');
-
-    return fetch('http://localhost:8080/api/user/info', {
-       
-      method: 'GET',
-      headers: {
-        headers,
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
-      }}).then(res => res.json())
-    } */
