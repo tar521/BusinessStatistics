@@ -11,7 +11,7 @@ import DeptFetch from './Components/Dashboard/Models/DeptFetch.js';
 
 // done below
 function App() { 
-
+  //sessionStorage.clear();
   const {token, setToken} = useToken();
 
  
@@ -23,9 +23,16 @@ function App() {
     </Routes>)
   }   
   return(
-      <div>
-        should not display
-      </div>
+    <div>
+   
+    <Routes>
+    <Route path='/' element = {<Home />}>
+        <Route path='/Dashboard' element = {<Dashboard />}/>
+        <Route path='/Preferences' element = {<Preferences/>}/>   
+      </Route>
+      
+    </Routes>
+    </div>
     )
   }
   

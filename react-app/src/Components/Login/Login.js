@@ -14,6 +14,20 @@ import Preferences from '../Preferences/Preferences';
   const [authenticated, setAuthenticated] = useState(false);
   const [cred, setCred] = useState();
   const [credP, setCredP] = useState();
+
+  
+  // async function loginUser(credentials) {
+  //   return fetch('http://localhost:8080/authenticate', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(credentials)
+  //   })
+  //    .then(data => data.json())
+  //  }
+
+
   async function loginUser(credentials) {
     return fetch('http://localhost:8080/authenticate', {
       method: 'POST',
@@ -22,50 +36,50 @@ import Preferences from '../Preferences/Preferences';
       },
       body: JSON.stringify(credentials)
     })
-    /*  .then(body => {
-     if (body === '') {
-       setAuthenticated(false);
-     } else {
-       console.log(body.bodyUsed)
-     }})  */
-     .then(data => data.json())
-   }
+     .then(data =>  {
+      if (data.ok) {
+        return data.json();
+      }
+      throw new Error("WRONG USERNAME AND PASSWORD");
+    })
+     .catch((error) => {
+      console.log(error);
+      setAuthenticated(false);
+    });
 
-  
+
+   }
  
+  //  async function errorCheck(data){
+  //   if (data.ok) {
+  //     console.log()
+  //     return data.json();
+  //   }
+  //   throw new Error("WRONG USERNAME AND PASSWORD");
+  //  }
+
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
-      username,
-      password
-    });
-    setToken(token);
-    console.log(token.jwt);
     
-   
-    var passCorrect = "pass123";
+      const token = await loginUser({
+        username,
+        password
+      });
+      const realt = token;
+      console.log(realt);
+      setToken(token);
+      
+      
+    
+      var passCorrect = "pass123";
 
-    for(var i = 1; i <= 11; i++){
-      var userNString = "user" + i;
-      console.log(username);
-      console.log(userNString);
-      if( username === userNString  && password === passCorrect ){
-        setAuthenticated(true);
-        break;
-      }
-      else if(username ==="admin1" && password === passCorrect){
-        setAuthenticated(true);
-        break;
-      } 
-
-    }
-    console.log("WRONG USERNAME OR PASSWORD");
-     
+      
     
   }
-
+     
   
-  if(!authenticated){
+  
+ 
     return(
       <div className="login-wrapper">
         <h1>Please Log In</h1>
@@ -86,24 +100,13 @@ import Preferences from '../Preferences/Preferences';
     );
     
     
-  }
+ 
   
   Login.propTypes = {
     setToken: PropTypes.func.isRequired
   };
 
-   return(
-    <div>
-   
-    <Routes>
-    <Route path='/' element = {<Home />}>
-        <Route path='/Dashboard' element = {<Dashboard />}/>
-        <Route path='/Preferences' element = {<Preferences/>}/>   
-      </Route>
-      
-    </Routes>
-    </div>
-  ) 
+ 
    
   
 
