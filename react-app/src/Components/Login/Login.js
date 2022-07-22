@@ -25,8 +25,10 @@ import Dashboard from '../Dashboard/MainDashboard';
     })
      .then(data =>  {
       if (data.ok) {
+        setAuthenticated(true);
         return data.json();
       }
+      setAuthenticated(false)
       throw new Error("WRONG USERNAME AND PASSWORD");
     })
      .catch((error) => {
@@ -47,8 +49,10 @@ import Dashboard from '../Dashboard/MainDashboard';
     console.log(token);
     
   }
-     
-
+  if(authenticated){
+    
+    return( <Dashboard/> )}
+  else
     return(
       <div className="login-wrapper">
         <h1>Please Log In</h1>
@@ -62,10 +66,9 @@ import Dashboard from '../Dashboard/MainDashboard';
             <p>Password</p>
             <input type="password"  onChange={e => setPassword(e.target.value)} />
           </label>
-          
+         
           <div> 
-           <Link to ="/Dashboard" element = {<Dashboard/> }>  <button type="submit"><h3>Submit</h3></button>
-           </Link>
+           <button type="submit"><h3>Submit</h3></button>
 
           </div>
         </form>
