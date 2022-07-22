@@ -14,9 +14,7 @@ const DeptChatDisplay = props => {
        <div className="DeptDisplay">
             <div id = "content_area">
                <div className='parent'>
-                    <div className='child' style={{width: '80%'}} id='barchart'>
-                          <BarChart/>
-                    </div>
+                    
                     <div className='child' style={{width: '80%'}} id='stackedbar'>
                         <StackedBar/>
                      </div>
