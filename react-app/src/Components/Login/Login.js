@@ -31,26 +31,8 @@ import Preferences from '../Preferences/Preferences';
      .then(data => data.json())
    }
 
-  /*  async function getUserInfo(token) {
-     console.log(token);
-     let headers = new Headers();
-
-     headers.append('Content-Type', 'application/json');
-     headers.append('Accept', 'application/json');
-     headers.append('Authorization', 'Bearer ' + token);
-     headers.append('Origin','http://localhost:3000');
-
-    return fetch('http://localhost:8080/api/user/info', {
-       
-      method: 'GET',
-      headers: {
-        headers,
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true
-      }}).then(res => res.json())
-    }
- */
+  
+ 
   const handleSubmit = async e => {
     e.preventDefault();
     const token = await loginUser({
@@ -59,37 +41,26 @@ import Preferences from '../Preferences/Preferences';
     });
     setToken(token);
     console.log(token.jwt);
-    //sessionStorage.setItem("token",token);
- 
-    /* const userObject = await getUserInfo(token.jwt);
-    console.log(userObject); */
-
-    //console.log( JSON.parse('user1'));
+    
    
+    var passCorrect = "pass123";
 
-    
-    
-    console.log(username );
-    console.log(cred);
-   
-    
-
-    for(var i = 1; i <= 1; i++){
-      var userNString = "user" + i
-      if( username === setCred(userNString)  && password === credP ){
-        console.log(username === cred);
+    for(var i = 1; i <= 11; i++){
+      var userNString = "user" + i;
+      console.log(username);
+      console.log(userNString);
+      if( username === userNString  && password === passCorrect ){
         setAuthenticated(true);
         break;
       }
-      else if(username ==="admin1"){
+      else if(username ==="admin1" && password === passCorrect){
         setAuthenticated(true);
         break;
       } 
-      else{
-        setAuthenticated(false);
-      }
+
     }
-    
+    console.log("WRONG USERNAME OR PASSWORD");
+     
     
   }
 
@@ -142,28 +113,26 @@ import Preferences from '../Preferences/Preferences';
 };
 
 export default Login;
-/* Old code
-import React from 'react';
-import './Login.css';
 
-export default function Login() { 
-  const [token, setToken] = useState();
-  return( 
-    <div className="login-wrapper">
-    <h1>Please Log In</h1>
-    <form>
-      <label>
-        <p>Username</p>
-        <input type="text" />
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="password" />
-      </label>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  )
-}
-*/
+
+/*
+
+async function getUserInfo(token) {
+     console.log(token);
+     let headers = new Headers();
+
+     headers.append('Content-Type', 'application/json');
+     headers.append('Accept', 'application/json');
+     headers.append('Authorization', 'Bearer ' + token);
+     headers.append('Origin','http://localhost:3000');
+
+    return fetch('http://localhost:8080/api/user/info', {
+       
+      method: 'GET',
+      headers: {
+        headers,
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      }}).then(res => res.json())
+    } */
