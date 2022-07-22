@@ -6,8 +6,8 @@ import {Navigate, Route, Routes, Link,Outlet } from 'react-router-dom';
 const Home = props => {
   sessionStorage.clear();
   return(   
-    <div className="Container">
-       <h3 to = "/Home">Welcome</h3>
+    <div className="login-wrapper">
+       <h1 to = "/Home">Welcome To Business Statistics For Sales</h1>
        <h2>
        <Link to= "/Login">Sign In</Link>
       

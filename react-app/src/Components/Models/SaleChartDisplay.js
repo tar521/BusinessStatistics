@@ -12,32 +12,26 @@ const SaleChartDisplay = props => {
    
      return(   
        <div className="SaleDisplay">
-         <div id = "content_area">
-      <div className='container' style = {{width: '80%'}} id='saleschart'>
-        <SalesChart/>
-      </div>
-      <div className='parent'>
-        <div className='child' style={{width: '40%'}} align='left' id='goalgauge'>
-          <GoalGauge/>
+          <div id = "content_area">
+            <div className='container' style = {{width: '80%'}} id='saleschart'>
+              <SalesChart/>
+            </div>
+            <div className='parent'>
+              <div className='child' style={{width: '40%'}} align='left' id='goalgauge'>
+               <GoalGauge/>
+              </div>
+              <div className='child' style={{width: '40%'}} align='right' id='piechart'>
+               <PieChart/>
+              </div>
+              <div className='child' style={{width: '80%'}} id='barchart'>
+                          <BarChart/>
+              </div>
+            </div>
+          </div> 
+          <footer> 
+            &copy; TriSamDylAlb 
+          </footer>
         </div>
-        <div className='child' style={{width: '40%'}} align='right' id='piechart'>
-          <PieChart/>
-        </div>
-      </div>
-      <div className='container' style={{width: '80%'}} id='barchart'>
-        <BarChart/>
-      </div>
-      <div className='container' style={{width: '80%'}} id='stackedbar'>
-        <StackedBar/>
-      </div>
-      </div>
-      <footer> 
-       &copy; TriSamDylAlb 
-      </footer>
-         
-        
-         
-       </div>
      );
    
      }

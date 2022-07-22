@@ -58,26 +58,27 @@ document.documentElement.scrollTop = 0;
     <div>
      <h2 >Application Home</h2>
       
-      <div class="navbar">
-      <Link to= "/"><a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> </Link>
-        <Link to= "/SaleChatDisplay"><a href="#"><i class="fa fa-fw fa-user"></i> SaleDisplay </a></Link>
-        
-        <Link to= "/Dashboard"><a href="#"><i class="fa fa-fw fa-search"></i> Search </a> </Link>
-        <Link to= "/Dashboard"><a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> </Link>
-        <Link to= "/DeptList"><a href="#"><i class="fa fa-fw fa-folder"></i> DeptList</a></Link>
-        <Link to= "/Preferences"><a href="#"><i class="fa fa-fw fa-user"></i> Preferences</a>  </Link>
-        <Link to= "/Login">  <a href="#"><i class="fa fa-fw fa-user"></i> Logout user </a></Link>
+      <div className="navbar">
+      <Link to= "/"><a className="active" href="#"><i className="fa fa-fw fa-home"></i> Home</a> </Link>
+        <Link to= "/SaleChatDisplay"><a href="#"><i className="fa fa-fw fa-user"></i> SaleDisplay </a></Link>
+        <Link to= "/DeptChatDisplay"><a href="#"><i className="fa fa-fw fa-user"></i> DepartmentDisplay </a></Link>
+        <Link to= "/Dashboard"><a href="#"><i className="fa fa-fw fa-envelope"></i> Contact</a></Link>
+        <Link to= "/DeptList"><a href="#"><i className="fa fa-fw fa-folder"></i> DeptList</a></Link>
+        <Link to= "/Preferences"><a href="#"><i className="fa fa-fw fa-user"></i> Preferences</a>  </Link>
+        <Link to= "/Login">  <a href="#"><i className="fa fa-fw fa-user"></i> Logout user </a></Link>
       </div>
-      <div class="sidenav">
+      <div className="sidenav">
       <a href="#Sales">Sales extra</a>
       <a href="#Personel">Personel</a>
       <a href="#Updates">Updates</a>
       <a href="#Session">Session</a>
-      <button class="dropdown-btn">Sales Reports 
-        <i class="fa fa-caret-down"></i>
+      
+      
+      <button className="dropdown-btn">Sales Reports 
+        <i className="fa fa-caret-down"></i>
       </button>
 
-      <div class="dropdown-container">
+      <div className="dropdown-container">
       <a href="#">By Dept</a>
       <a href="#">By User</a>
       <a href="#">By Month</a> 
@@ -85,11 +86,13 @@ document.documentElement.scrollTop = 0;
       </div>
       <a href="#contact">Search</a>
 
-      <button class="dropdown-btn">Department Reports 
-      <i class="fa fa-caret-down"></i>
+      <button className="dropdown-btn">Department Reports 
+      <i className="fa fa-caret-down"></i>
       </button>
 
-      <div class="dropdown-container">
+      <a href="https://github.com/tar521/BusinessStatistics">GITHUB</a>
+      
+      <div className="dropdown-container">
       <a href="#">By Dept</a>
       <a href="#">By User</a>
       <a href="#">By Month</a> 

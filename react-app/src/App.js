@@ -7,6 +7,8 @@ import Dashboard from './Components/Dashboard/MainDashboard';
 import Preferences from './Components/Preferences/Preferences';
 import DeptList from './Components/Models/DeptList';
 import SaleChartDisplay from './Components/Models/SaleChartDisplay';
+import DeptChatDisplay from './Components/Models/DeptChatDisplay';
+
 import Home from './Components/Home.js';
 
 // done below
@@ -23,12 +25,14 @@ function App() {
       <Routes>
         <Route path='/Dashboard' element = {<Dashboard />}/>
         <Route path='/SaleChatDisplay' element = {<Dashboard />}/>
+        <Route path='/DeptChatDisplay' element = {<Dashboard />}/>
         <Route path='/Preferences' element = {<Dashboard />}/>
         <Route path='/DeptList' element = {<Dashboard />}/>
       </Routes>
 
       <Routes>
         <Route path='/SaleChatDisplay' element = {<SaleChartDisplay />}/>
+        <Route path='/DeptChatDisplay' element = {<DeptChatDisplay />}/>
       </Routes>     
     
       <Routes>
