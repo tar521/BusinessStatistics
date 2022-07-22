@@ -45,8 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/v3/api-docs/**").permitAll()
 			.antMatchers("/swagger-ui*/**").permitAll()
-			.antMatchers("/register").permitAll()
+			.antMatchers("/api/sales/**").permitAll()
 			.antMatchers("/authenticate").permitAll() // anyone can create token if they're a user
+			.antMatchers("/register").permitAll()
 			
 			.anyRequest().authenticated() // any other API in this project need to be authenticated (token or user info)
 			.and().sessionManagement()
